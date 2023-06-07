@@ -6,7 +6,7 @@ services:
     image: nginx:latest
     # 映射容器80端口到本地80端口
     ports:
-    - "5000:80"
+    - "4005:80"
     # 数据卷 映射本地文件到容器
     volumes:
     # 映射nginx.conf文件到容器的/etc/nginx/conf.d目录并覆盖default.conf文件

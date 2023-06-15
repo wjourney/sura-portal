@@ -34,4 +34,4 @@ jobs:
             docker rm react-demo
             docker rmi wjourney/react-demo:latest
             docker pull wjourney/react-demo:latest
-            docker run -d -p 3006:3006 --name react-demo wjourney/react-demo:latest
+            docker run -d -p 3006:80 --name react-demo wjourney/react-demo:latest

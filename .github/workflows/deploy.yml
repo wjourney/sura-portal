@@ -1,0 +1,37 @@
+name: docerker deploy CI/CD
+
+on:
+  push: # push 时触发ci
+    branches: [master] # 作用于master分支
+
+# 任务
+jobs:  
+  test:
+    # 运行的环境
+    runs-on: ubuntu-latest
+    # 步骤
+    steps:
+      - uses: actions/checkout@v2 # git pull
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: 打包镜像, 上传 Docker Hub
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker build -t actions:latest  .
+          docker tag actions:latest wjourney/react-demo:latest
+          docker push wjourney/react-demo:latest
+
+      - name: 登录服务器, 执行脚本
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}   
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            docker stop actions
+            docker rm actions
+            docker rmi wjourney/react-demo:latest
+            docker pull wjourney/react-demo:latest
+            docker run -d -p 3006:3006 --name actions wjourney/react-demo:latest

@@ -11,4 +11,4 @@ CMD yarn build
 
 #运行阶段
 FROM nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder app/dist usr/share/nginx/html

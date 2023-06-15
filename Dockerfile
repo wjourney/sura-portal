@@ -7,8 +7,9 @@ RUN yarn --frozen-lockfile
 
 COPY . ./
 CMD yarn build
+COPY . ./
 
 #运行阶段
 FROM nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# COPY nginx.conf /etc/nginx/conf.d/default.conf

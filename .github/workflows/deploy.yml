@@ -1,4 +1,4 @@
-name: docerker deploy CI/CD
+name: docker deploy CI/CD
 
 on:
   push: # push 时触发ci

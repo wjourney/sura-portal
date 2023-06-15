@@ -2,9 +2,8 @@
 FROM node:19-alpine as builder
 WORKDIR '/app'
 
-COPY package.json .
-COPY yarn.lock .
-RUN yarn
+COPY package.json yarn.lock ./
+RUN yarn --frozen-lockfile
 
 COPY . ./
 CMD yarn build

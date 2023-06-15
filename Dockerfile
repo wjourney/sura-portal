@@ -8,6 +8,11 @@ RUN yarn
 COPY . .
 CMD yarn build
 
+
+EXPOSE 3006
+
+ENV PORT 3006
+
 #运行阶段
 FROM nginx
 COPY --from=builder /app/dist /usr/share/nginx/html

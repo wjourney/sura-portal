@@ -3,6 +3,7 @@ FROM node:19-alpine as builder
 WORKDIR '/app'
 
 COPY package.json .
+COPY yarn.lock .
 RUN yarn
 
 COPY . .
@@ -10,4 +11,4 @@ CMD yarn build
 
 #运行阶段
 FROM nginx
-COPY --from=builder ./app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
